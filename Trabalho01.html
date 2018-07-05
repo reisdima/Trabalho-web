@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trabalho 01</title>
+    <style media="screen">
+      .Names{
+        position: absolute;
+        left: 20px;
+
+      }
+      .Products{
+        position: absolute;;
+        left: 400px;
+      }
+      .Price{
+        position: absolute;
+        left: 600px;
+      }
+      .People{
+        position: absolute;;
+        top: 150px;
+        left: 20px;
+      }
+      .Fixo{
+        position: absolute;
+        left: 400px;
+        top: 150px;
+      }
+      .PerCapita{
+        position: absolute;
+        left: 600px;;
+        top: 150px;
+
+      }
+      .Resultado{
+        position: absolute;
+        top: 400px;
+        font-size: 2em;
+      }
+
+      hr{
+        border-width: medium;
+        border-style: solid;
+        position: absolute;
+        width: 98%;
+        top: 120px;
+        color: darkblue;
+      }
+      .botao{
+        position: relative;
+        left: 3px;
+      }
+      .tabela, th, td{
+        border-collapse: collapse ;
+        border: 1px solid black;
+        width: 173px;
+        text-align: center;
+
+      }
+    </style>
+  </head>
+  <body>
+
+  <div class="Names">
+    <h1>Nome</h1>
+    <input type="text" placeholder="nome do convidado">
+    <button>Adicionar</button>
+  </div>
+
+
+  <div class="Products">
+    <h1>Produto</h1>
+    <input type="text" placeholder="nome do produto">
+  </div>
+
+
+  <div class="Price">
+    <h1>Valor Un.</h1>
+    <input type="text" placeholder="digite o valor">
+    <button>Custo Fixo</buttton>
+    <button class="botao">Per Capita</buttton>
+  </div>
+
+  <hr>
+
+  <div class="People">
+    <h1>Pessoas</h1>
+    <ul>
+
+    </ul>
+  </div>
+
+
+  <div class="Fixo">
+    <h1>Custos Fixos</h1>
+    <table class="tabela">
+    </table>
+  </div>
+
+
+  <div class="PerCapita">
+    <h1>Custos per capita</h1>
+    <table class="tabela">
+
+    </table>
+  </div>
+
+
+  <div class="Resultado">
+    <p>Valor para cada um: R$<span>0</span> </p>
+  </div>
+
+  <script>
+    //entradas
+    var inputs = document.querySelectorAll("input");
+    var buttons = document.querySelectorAll("button");
+    var entradaNome = inputs[0];
+    var entradaProduto = inputs[1];
+    var entradaValor = inputs[2];
+    var botaoNome = buttons[0];
+    var botaoFixo = buttons[1];
+    var botaoPerCapita = buttons[2];
+
+    //variáveis
+    var pessoas = 0;
+    var total = document.querySelector("span");
+    total.value = Number(0);
+    var totalFixo = 0;
+    var totalPerCapita = 0;
+
+    //saídas
+    var lista = document.querySelector('ul');
+    var tables = document.querySelectorAll("table");
+    var tabelaFixo = tables[0];
+    var tabelaPerCapita = tables[1];
+
+    //registrar eventos
+    botaoNome.addEventListener("click", addNomes);
+    botaoFixo.addEventListener("click", addFixo);
+    botaoPerCapita.addEventListener("click", addPerCapita);
+
+    //funções
+    function addNomes(){
+      var novoLi = document.createElement("li");
+      novoLi.textContent = entradaNome.value;
+      entradaNome.value = "";
+      entradaNome.focus();
+      lista.appendChild(novoLi);
+      pessoas++;
+      calculaTotal();
+    }
+    function addFixo(){
+      var novoTr = document.createElement("tr");
+      var novoProduto = document.createElement("td");
+      var novoValor = document.createElement("td");
+      novoProduto.textContent = entradaProduto.value;
+      entradaProduto.value = "";
+      entradaProduto.focus();
+      novoValor.textContent =   entradaValor.value;
+      entradaValor.value = "";
+      novoTr.appendChild(novoProduto);
+      novoTr.appendChild(novoValor);
+      tabelaFixo.appendChild(novoTr);
+      totalFixo = totalFixo + Number(novoValor.textContent);
+      calculaTotal();
+    }
+
+    function addPerCapita(){
+      var novoTr = document.createElement("tr");
+      var novoProduto = document.createElement("td");
+      var novoValor = document.createElement("td");
+      novoProduto.textContent = entradaProduto.value;
+      entradaProduto.value = "";
+      entradaProduto.focus();
+      novoValor.textContent =   entradaValor.value;
+      entradaValor.value = "";
+      novoTr.appendChild(novoProduto);
+      novoTr.appendChild(novoValor);
+      tabelaPerCapita.appendChild(novoTr);
+      totalPerCapita = totalPerCapita + Number(novoValor.textContent);
+      calculaTotal();
+    }
+    function calculaTotal(){
+      if(pessoas!=0){
+        total.innerHTML = (total.value+totalFixo/pessoas + totalPerCapita).toFixed(2);
+      }
+
+    }
+  </script>
+  </body>
+</html>
