@@ -64,20 +64,20 @@
 
   <div class="Names">
     <h1>Nome</h1>
-    <input type="text" placeholder="nome do convidado">
+    <input type="text" placeholder="nome do convidado" required>
     <button>Adicionar</button>
   </div>
 
 
   <div class="Products">
     <h1>Produto</h1>
-    <input type="text" placeholder="nome do produto">
+    <input type="text" placeholder="nome do produto" required>
   </div>
 
 
   <div class="Price">
     <h1>Valor Un.</h1>
-    <input type="text" placeholder="digite o valor">
+    <input type="text" placeholder="digite o valor" required>
     <button>Custo Fixo</buttton>
     <button class="botao">Per Capita</buttton>
   </div>
@@ -166,6 +166,7 @@
 
     function exibeProdutoFixo(){
       var tbody = document.getElementById('bodyFixo');
+      tbody.innerHTML = '';
       for (var i = 0; i < produtoFixo.length; i++) {
         var produto = produtoFixo[i];
         var preco = precoFixo[i];
@@ -182,6 +183,7 @@
 
     function exibeProdutoPerCapita(){
       var tbody = document.getElementById('bodyPerCapita');
+      tbody.innerHTML = '';
       for (var i = 0; i < produtoPerCapita.length; i++) {
         var produto = produtoPerCapita[i];
         var preco = precoPerCapita[i];
@@ -198,20 +200,27 @@
 
     function   adicionaProdutoPerCapita(){
       var produto = inputs[1].value;
-      var preco = inputs[1].value;
-      var body = document.getElementById('bodyPerCapita');
-      body.innerHTML = '';
-      produtoPerCapita.push(produto);
-      precoPerCapita.push(preco);
-      exibeProdutoPerCapita();
+      var preco = inputs[2].value;
+      if(preco!="" && produto!=""){
+        inputs[1].value = '';
+        inputs[2].value = '';
+        inputs[1].focus();
+        produtoPerCapita.push(produto);
+        precoPerCapita.push(preco);
+        exibeProdutoPerCapita();
+      }
     }
 
     function adicionaPessoa(){
       var pessoa = inputs[0].value;
-      numeroPessoas++;
-      limpaLista();
-      nomes.push(pessoa);
-      exibeNomes();
+      if(pessoa!=""){
+        inputs[0].value = '';
+        inputs[0].focus();
+        numeroPessoas++;
+        limpaLista();
+        nomes.push(pessoa);
+        exibeNomes();
+      }
     }
     function limpaLista(){
       var list = document.getElementById('listaUnordered');
@@ -223,11 +232,14 @@
     function adicionaProdutoFixo(){
       var produto = inputs[1].value;
       var preco = inputs[2].value;
-      var tbody = document.getElementById('bodyFixo')
-      tbody.innerHTML = '';
-      precoFixo.push(preco);
-      produtoFixo.push(produto);
-      exibeProdutoFixo();
+      if(preco!="" && produto!=""){
+        inputs[1].value = '';
+        inputs[2].value = '';
+        inputs[1].focus();
+        precoFixo.push(preco);
+        produtoFixo.push(produto);
+        exibeProdutoFixo();
+      }
     }
 
 
