@@ -86,15 +86,22 @@
 
   <div class="People">
     <h1>Pessoas</h1>
-    <ul>
-
-    </ul>
+    <ul id="listaUnordered"></ul>
   </div>
 
 
   <div class="Fixo">
     <h1>Custos Fixos</h1>
     <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Custo</th>
+        </tr>
+      </thead>
+      <tbody id="bodyFixo">
+
+      </tbody>
     </table>
   </div>
 
@@ -113,80 +120,80 @@
 
   <script>
     //entradas
-    var inputs = document.querySelectorAll("input");
-    var buttons = document.querySelectorAll("button");
-    var entradaNome = inputs[0];
-    var entradaProduto = inputs[1];
-    var entradaValor = inputs[2];
-    var botaoNome = buttons[0];
-    var botaoFixo = buttons[1];
-    var botaoPerCapita = buttons[2];
+    var inputs = document.querySelectorAll('input');
+    var botoes = document.querySelectorAll('button');
 
-    //variáveis
-    var pessoas = 0;
-    var total = document.querySelector("span");
-    total.value = Number(0);
-    var totalFixo = 0;
-    var totalPerCapita = 0;
 
-    //saídas
-    var lista = document.querySelector('ul');
-    var tables = document.querySelectorAll("table");
-    var tabelaFixo = tables[0];
-    var tabelaPerCapita = tables[1];
+    //variaveis
+    var numeroPessoas = 0;
+    var nomes = [];
+    var produtoFixo = [];
+    var produtoPerCapita = [];
+    var precoFixo = [];
+    var precoPerCapita = [];
 
-    //registrar eventos
-    botaoNome.addEventListener("click", addNomes);
-    botaoFixo.addEventListener("click", addFixo);
-    botaoPerCapita.addEventListener("click", addPerCapita);
+    //botoes
+    var botaoPessoa = botoes[0];
+    var botaoFixo = botoes[1];
+    botaoPessoa.addEventListener('click', adicionaPessoa);
+    botaoFixo.addEventListener('click', adicionaProdutoFixo);
 
-    //funções
-    function addNomes(){
-      var novoLi = document.createElement("li");
-      novoLi.textContent = entradaNome.value;
-      entradaNome.value = "";
-      entradaNome.focus();
-      lista.appendChild(novoLi);
-      pessoas++;
-      calculaTotal();
-    }
-    function addFixo(){
-      var novoTr = document.createElement("tr");
-      var novoProduto = document.createElement("td");
-      var novoValor = document.createElement("td");
-      novoProduto.textContent = entradaProduto.value;
-      entradaProduto.value = "";
-      entradaProduto.focus();
-      novoValor.textContent =   entradaValor.value;
-      entradaValor.value = "";
-      novoTr.appendChild(novoProduto);
-      novoTr.appendChild(novoValor);
-      tabelaFixo.appendChild(novoTr);
-      totalFixo = totalFixo + Number(novoValor.textContent);
-      calculaTotal();
+
+
+    function exibeNomes(){
+      var ul = document.querySelector('ul');
+      for (var i = 0; i < nomes.length; i++) {
+        var nome = nomes[i];
+        var novoLi = document.createElement('li');
+        var spanDelete = document.createElement('span');
+        spanDelete.innerHTML = "&#x1F5D1;";
+        novoLi.textContent = nome + " ";
+        novoLi.appendChild(spanDelete);
+        ul.appendChild(novoLi);
+
+      }
     }
 
-    function addPerCapita(){
-      var novoTr = document.createElement("tr");
-      var novoProduto = document.createElement("td");
-      var novoValor = document.createElement("td");
-      novoProduto.textContent = entradaProduto.value;
-      entradaProduto.value = "";
-      entradaProduto.focus();
-      novoValor.textContent =   entradaValor.value;
-      entradaValor.value = "";
-      novoTr.appendChild(novoProduto);
-      novoTr.appendChild(novoValor);
-      tabelaPerCapita.appendChild(novoTr);
-      totalPerCapita = totalPerCapita + Number(novoValor.textContent);
-      calculaTotal();
-    }
-    function calculaTotal(){
-      if(pessoas!=0){
-        total.innerHTML = (total.value+totalFixo/pessoas + totalPerCapita).toFixed(2);
+    function exibeProdutoFixo(){
+      var tbody = document.getElementById('bodyFixo');
+      for (var i = 0; i < produtoFixo.length; i++) {
+        var produto = produtoFixo[i];
+        var preco = precoFixo[i];
+        var novoTr = document.createElement('tr');
+        var tdProd = document.createElement('td');
+        var tdPreco = document.createElement('td');
+        tdProd.textContent = produto;
+        tdPreco.textContent = preco;
+        novoTr.appendChild(tdProd);
+        novoTr.appendChild(tdPreco);
+        tbody.appendChild(novoTr);
       }
 
     }
-  </script>
+
+    function adicionaPessoa(){
+      var pessoa = inputs[0].value;
+      numeroPessoas++;
+      limpaLista();
+      nomes.push(pessoa);
+      exibeNomes();
+    }
+
+    function adicionaProdutoFixo(){
+      var produto = inputs[1].value;
+      var preco = inputs[2].value;
+      precoFixo.push(preco);
+      produtoFixo.push(produto);
+      exibeProdutoFixo();
+    }
+    function limpaLista(){
+      var list = document.getElementById('listaUnordered');
+      for (var i = 0; i < nomes.length; i++) {
+        list.removeChild(list.childNodes[0]);
+      }
+    }
+
+
+    </script>
   </body>
 </html>
