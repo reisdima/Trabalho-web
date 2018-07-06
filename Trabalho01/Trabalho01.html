@@ -109,7 +109,15 @@
   <div class="PerCapita">
     <h1>Custos per capita</h1>
     <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Custo</th>
+        </tr>
+      </thead>
+      <tbody id="bodyPerCapita">
 
+      </tbody>
     </table>
   </div>
 
@@ -135,8 +143,10 @@
     //botoes
     var botaoPessoa = botoes[0];
     var botaoFixo = botoes[1];
+    var botaoPerCapita = botoes[2];
     botaoPessoa.addEventListener('click', adicionaPessoa);
     botaoFixo.addEventListener('click', adicionaProdutoFixo);
+    botaoPerCapita.addEventListener('click', adicionaProdutoPerCapita);
 
 
 
@@ -168,7 +178,32 @@
         novoTr.appendChild(tdPreco);
         tbody.appendChild(novoTr);
       }
+    }
 
+    function exibeProdutoPerCapita(){
+      var tbody = document.getElementById('bodyPerCapita');
+      for (var i = 0; i < produtoPerCapita.length; i++) {
+        var produto = produtoPerCapita[i];
+        var preco = precoPerCapita[i];
+        var novoTr = document.createElement('tr');
+        var tdProd = document.createElement('td');
+        var tdPreco = document.createElement('td');
+        tdPreco.textContent = preco;
+        tdProd.textContent = produto;
+        novoTr.appendChild(tdProd);
+        novoTr.appendChild(tdPreco);
+        tbody.appendChild(novoTr);
+      }
+    }
+
+    function   adicionaProdutoPerCapita(){
+      var produto = inputs[1].value;
+      var preco = inputs[1].value;
+      var body = document.getElementById('bodyPerCapita');
+      body.innerHTML = '';
+      produtoPerCapita.push(produto);
+      precoPerCapita.push(preco);
+      exibeProdutoPerCapita();
     }
 
     function adicionaPessoa(){
@@ -178,20 +213,24 @@
       nomes.push(pessoa);
       exibeNomes();
     }
-
-    function adicionaProdutoFixo(){
-      var produto = inputs[1].value;
-      var preco = inputs[2].value;
-      precoFixo.push(preco);
-      produtoFixo.push(produto);
-      exibeProdutoFixo();
-    }
     function limpaLista(){
       var list = document.getElementById('listaUnordered');
       for (var i = 0; i < nomes.length; i++) {
         list.removeChild(list.childNodes[0]);
       }
     }
+
+    function adicionaProdutoFixo(){
+      var produto = inputs[1].value;
+      var preco = inputs[2].value;
+      var tbody = document.getElementById('bodyFixo')
+      tbody.innerHTML = '';
+      precoFixo.push(preco);
+      produtoFixo.push(produto);
+      exibeProdutoFixo();
+    }
+
+
 
 
     </script>
