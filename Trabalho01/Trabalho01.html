@@ -123,7 +123,7 @@
 
 
   <div class="Resultado">
-    <p>Valor para cada um: R$<span>0</span> </p>
+    <p>Valor para cada um: R$<span id="Total">0</span> </p>
   </div>
 
   <script>
@@ -139,6 +139,7 @@
     var produtoPerCapita = [];
     var precoFixo = [];
     var precoPerCapita = [];
+    var total = document.getElementById('Total');
 
     //botoes
     var botaoPessoa = botoes[0];
@@ -208,6 +209,7 @@
         produtoPerCapita.push(produto);
         precoPerCapita.push(preco);
         exibeProdutoPerCapita();
+        calculaTotal();
       }
     }
 
@@ -220,6 +222,7 @@
         limpaLista();
         nomes.push(pessoa);
         exibeNomes();
+        calculaTotal();
       }
     }
     function limpaLista(){
@@ -239,6 +242,24 @@
         precoFixo.push(preco);
         produtoFixo.push(produto);
         exibeProdutoFixo();
+        calculaTotal();
+      }
+    }
+    function calculaTotal(){
+      var soma = 0;
+      if(numeroPessoas!=0){
+        for (var i = 0; i < produtoFixo.length; i++) {
+          soma+=Number(precoFixo[i]);
+        }
+        soma = soma/numeroPessoas;
+        for (var i = 0; i < produtoPerCapita.length; i++) {
+          soma = soma+Number(precoPerCapita[i]);
+        }
+        soma = soma.toFixed(2);
+        total.innerHTML = soma;
+      }
+      else{
+        total.innerHTML = 0;
       }
     }
 
