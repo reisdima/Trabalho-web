@@ -167,6 +167,7 @@
             list.removeChild(list.childNodes[x]);
             limpaLista();
             exibeNomes();
+            calculaTotal();
           }
         })(i));
         ul.appendChild(novoLi);
@@ -191,6 +192,7 @@
           produtoFixo.splice(x, 1);
           tbody.innerHTML = '';
           exibeProdutoFixo();
+          calculaTotal();
         })
         novoTr.appendChild(tdProd);
         novoTr.appendChild(tdPreco);
@@ -216,9 +218,11 @@
           produtoPerCapita.splice(x, 1);
           tbody.innerHTML = '';
           exibeProdutoPerCapita();
+          calculaTotal();
         })
         novoTr.appendChild(tdProd);
         novoTr.appendChild(tdPreco);
+        novoTr.appendChild(tdDelete);
         tbody.appendChild(novoTr);
       }
     }
