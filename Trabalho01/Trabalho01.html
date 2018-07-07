@@ -137,8 +137,6 @@
     var nomes = [];
     var produtoFixo = [];
     var produtoPerCapita = [];
-    var precoFixo = [];
-    var precoPerCapita = [];
     var total = document.getElementById('Total');
 
     //botoes
@@ -169,8 +167,8 @@
       var tbody = document.getElementById('bodyFixo');
       tbody.innerHTML = '';
       for (var i = 0; i < produtoFixo.length; i++) {
-        var produto = produtoFixo[i];
-        var preco = precoFixo[i];
+        var produto = produtoFixo[i].produto;
+        var preco = produtoFixo[i].preco;
         var novoTr = document.createElement('tr');
         var tdProd = document.createElement('td');
         var tdPreco = document.createElement('td');
@@ -186,8 +184,8 @@
       var tbody = document.getElementById('bodyPerCapita');
       tbody.innerHTML = '';
       for (var i = 0; i < produtoPerCapita.length; i++) {
-        var produto = produtoPerCapita[i];
-        var preco = precoPerCapita[i];
+        var produto = produtoPerCapita[i].produto;
+        var preco = produtoPerCapita[i].preco;
         var novoTr = document.createElement('tr');
         var tdProd = document.createElement('td');
         var tdPreco = document.createElement('td');
@@ -200,14 +198,14 @@
     }
 
     function   adicionaProdutoPerCapita(){
-      var produto = inputs[1].value;
+      var nome = inputs[1].value;
       var preco = inputs[2].value;
       if(preco!="" && produto!=""){
+        var produto = {produto: nome, preco: preco};
         inputs[1].value = '';
         inputs[2].value = '';
         inputs[1].focus();
         produtoPerCapita.push(produto);
-        precoPerCapita.push(preco);
         exibeProdutoPerCapita();
         calculaTotal();
       }
@@ -233,13 +231,13 @@
     }
 
     function adicionaProdutoFixo(){
-      var produto = inputs[1].value;
+      var nome = inputs[1].value;
       var preco = inputs[2].value;
       if(preco!="" && produto!=""){
+        var produto = {produto: nome, preco: preco};
         inputs[1].value = '';
         inputs[2].value = '';
         inputs[1].focus();
-        precoFixo.push(preco);
         produtoFixo.push(produto);
         exibeProdutoFixo();
         calculaTotal();
@@ -249,11 +247,11 @@
       var soma = 0;
       if(numeroPessoas!=0){
         for (var i = 0; i < produtoFixo.length; i++) {
-          soma+=Number(precoFixo[i]);
+          soma+=Number(produtoFixo[i].preco);
         }
         soma = soma/numeroPessoas;
         for (var i = 0; i < produtoPerCapita.length; i++) {
-          soma = soma+Number(precoPerCapita[i]);
+          soma = soma+Number(produtoPerCapita[i].preco);
         }
         soma = soma.toFixed(2);
         total.innerHTML = soma;
