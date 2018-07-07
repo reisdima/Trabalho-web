@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>O barqueiro, a raposa, a galinha e os grãos</title>
+    <style media="screen">
+      .inst {
+        width:200px;
+        border:1px solid #003366;
+        background-color:#bcf5a9;
+        padding:3px;
+      }
+
+      .inputArea{
+        position:absolute;
+        left:250px;
+        top:5px;
+      }
+
+      .Resultado {
+        position:absolute;
+        top:50px;
+        left:600px;
+        width:100px;
+        height:60px;
+        padding:30px;
+        font:120% normal arial;
+        border:1px solid #003366;
+        background-color:#bcf5a9;
+      }
+
+      body {
+        font:76% normal verdana,arial,tahoma;
+        margin:10;
+        padding:0;
+      }
+
+      h1, h2 {
+        font-size:1em;
+      }
+
+
+      #raposaObject {
+        /* simple box */
+        position:absolute;
+        left:100px;
+        top:15em;
+        width:5em;
+        line-height:3em;
+        /*background:#99ccff;*/
+        /*border:1px solid #003366;*/
+        white-space:nowrap;
+        padding:0.5em;
+      }
+
+      #galinhaObject {
+        /* simple box */
+        position:absolute;
+        left:100px;
+        top:15em;
+        /*width:5em;*/
+        line-height:3em;
+        /*background:#99ccff;*/
+        /*border:1px solid #003366;*/
+        white-space:nowrap;
+        padding:0.5em;
+      }
+
+      #milhoObject {
+        /* simple box */
+        position:absolute;
+        left:100px;
+        top:15em;
+        /*width:3em;*/
+        line-height:3em;
+        white-space:nowrap;
+        padding:0.5em;
+      }
+
+      #barqueiroObject {
+        /* simple box */
+        position:absolute;
+        left:100px;
+        top:18em;
+        width:5em;
+        line-height:3em;
+        /*background:#99ccff;
+        border:1px solid #003366;*/
+        white-space:nowrap;
+        padding:0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class= "Cenario">
+      <img src=cenario.png
+      width=1000 height=600
+      style="position:absolute; left:90;">
+    </div>
+
+    <div id="inputArea" class="inputArea" style="position:absolute; top:50px;">
+      <p id='inputBox'><h3>Quem você irá mover?</h3></p>
+      <input type='text' id='userInput' value="" />
+      <input type='button' onclick='moveIt()' value='Mover'/>
+    </div>
+
+    <div id="raposaObject">
+      <img src=raposa.png>
+    </div>
+
+    <div id="galinhaObject">
+      <img src=galinha.png>
+    </div>
+
+    <div id="milhoObject">
+      <img src=milho.png>
+    </div>
+
+    <div id="barqueiroObject">
+      <img src=barqueiro.png>
+    </div>
+
+    <div class="Resultado" id='Resultado'>
+        <p>Movimentos=0</p>
+        <!--<p>Tentativas=0</p>-->
+    </div>
+
+    <div class="inst" style="position:absolute; top:10px; left:1100px; height:590px;"><b><center>Instruções</center></b><br>
+      <p>Um barqueiro deve levar sua raposa, galinha e o milho para o outro lado rio largo. O problema é que ele só pode levar um item com ele de cada vez. Se ele deixar a raposa com a galinha, a galinha será comida. Se ele deixar a galinha com o milho, a galinha vai comer o milho.</p>
+	    <p>Ajude o barqueiro a atravessar o rio com seus animais e o milho, movendo um item de cada vez (o barqueiro se moverá automaticamente)..</p>
+	   </div>
+
+</body>
+</html>
