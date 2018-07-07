@@ -158,6 +158,17 @@
         spanDelete.innerHTML = "&#x1F5D1;";
         novoLi.textContent = nome + " ";
         novoLi.appendChild(spanDelete);
+        spanDelete.addEventListener('click',(function(x){
+          return function(e){
+            console.log("Lixo clicado: "+x);
+            nomes.splice(x, 1);
+            var list = document.getElementById('listaUnordered');
+            list.removeChild(list.childNodes[x]);
+            limpaLista();
+            exibeNomes();
+          }
+        })(i));
+        console.log(nomes);
         ul.appendChild(novoLi);
 
       }
