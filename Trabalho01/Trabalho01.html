@@ -35,8 +35,8 @@
       }
       .Resultado{
         position: absolute;
-        top: 400px;
-        font-size: 2em;
+        top: 600px;
+        font-size: 3em;
       }
 
       hr{
@@ -47,16 +47,47 @@
         top: 120px;
         color: darkblue;
       }
-      .botao{
+      .botaoPerCapita{
         position: relative;
-        left: 3px;
+        left: 5px;
       }
-      .tabela, th, td{
-        border-collapse: collapse ;
+      th, td{
         border: 1px solid black;
-        width: 173px;
         text-align: center;
-
+        font-size: 20px;
+      }
+      .tabela{
+        border-collapse: collapse;
+        width: 230px;
+      }
+      .head{
+        border:none;
+        width:24px;
+      }
+      .botaoFixo, .botaoNome, .botaoPerCapita{
+        cursor: pointer;
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 3px 10px;
+        color: white;
+      }
+      body{
+        background-color: SkyBlue;
+        color: darkblue;
+      }
+      input{
+        background-color: PaleGoldenRod;
+        border: 1px black solid;
+        padding: 4px 2px;
+      }
+      ul{
+        font-size: 20px;
+      }
+      .delete{
+        font-size: 20px;
+        position: relative;
+        right: -10px;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -65,7 +96,7 @@
   <div class="Names">
     <h1>Nome</h1>
     <input type="text" placeholder="nome do convidado" required>
-    <button>Adicionar</button>
+    <button class="botaoNome" style="background-color: darkblue;">Adicionar</button>
   </div>
 
 
@@ -78,8 +109,8 @@
   <div class="Price">
     <h1>Valor Un.</h1>
     <input type="text" placeholder="digite o valor" required>
-    <button>Custo Fixo</buttton>
-    <button class="botao">Per Capita</buttton>
+    <button class="botaoFixo" style="background-color: darkblue;">Custo Fixo</buttton>
+    <button class="botaoPerCapita" style="background-color: darkblue;">Per Capita</buttton>
   </div>
 
   <hr>
@@ -98,6 +129,7 @@
         <tr>
           <th>Nome</th>
           <th>Custo</th>
+          <th class="head"></th>
         </tr>
       </thead>
       <tbody id="bodyFixo">
@@ -114,6 +146,7 @@
         <tr>
           <th>Nome</th>
           <th>Custo</th>
+          <th class="head"></th>
         </tr>
       </thead>
       <tbody id="bodyPerCapita">
@@ -124,7 +157,7 @@
 
 
   <div class="Resultado">
-    <p>Valor para cada um: R$<span id="Total">0</span> </p>
+    <p>Valor para cada um: R$<span id="Total">0.00</span> </p>
   </div>
 
   <script>
@@ -159,6 +192,7 @@
         spanDelete.innerHTML = "&#x1F5D1;";
         novoLi.textContent = nome + " ";
         novoLi.appendChild(spanDelete);
+        spanDelete.style = "cursor: pointer";
         spanDelete.addEventListener('click',(function(x){
           return function(e){
             console.log("Lixo clicado: "+x);
@@ -185,11 +219,12 @@
         var novoTr = document.createElement('tr');
         var tdProd = document.createElement('td');
         var tdPreco = document.createElement('td');
-        var tdDelete = document.createElement('td');
-        tdDelete.innerHTML = "&#x1F5D1;";
+        var spanDelete = document.createElement('span');
+        spanDelete.innerHTML = "&#x1F5D1;";
+        spanDelete.classList.add('delete');
         tdProd.textContent = produto;
         tdPreco.textContent = preco;
-        tdDelete.addEventListener('click', function(x){
+        spanDelete.addEventListener('click', function(x){
           produtoFixo.splice(x, 1);
           tbody.innerHTML = '';
           exibeProdutoFixo();
@@ -197,7 +232,7 @@
         })
         novoTr.appendChild(tdProd);
         novoTr.appendChild(tdPreco);
-        novoTr.appendChild(tdDelete);
+        novoTr.appendChild(spanDelete);
         tbody.appendChild(novoTr);
       }
     }
@@ -211,11 +246,12 @@
         var novoTr = document.createElement('tr');
         var tdProd = document.createElement('td');
         var tdPreco = document.createElement('td');
-        var tdDelete = document.createElement('td');
-        tdDelete.innerHTML = "&#x1F5D1;";
+        var spanDelete = document.createElement('span');
+        spanDelete.innerHTML = "&#x1F5D1;";
         tdPreco.textContent = preco;
         tdProd.textContent = produto;
-        tdDelete.addEventListener('click', function(x){
+        spanDelete.classList.add("delete");
+        spanDelete.addEventListener('click', function(x){
           produtoPerCapita.splice(x, 1);
           tbody.innerHTML = '';
           exibeProdutoPerCapita();
@@ -223,7 +259,7 @@
         })
         novoTr.appendChild(tdProd);
         novoTr.appendChild(tdPreco);
-        novoTr.appendChild(tdDelete);
+        novoTr.appendChild(spanDelete);
         tbody.appendChild(novoTr);
       }
     }
