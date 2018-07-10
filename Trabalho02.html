@@ -36,9 +36,18 @@
         left: 400px;
         top: 650px;
       }
+      .mensagem{
+        position:absolute;
+        text-align: center;
+        width: 99%;
+        top: 300px;
+      }
     </style>
   </head>
   <body>
+    <div class="mensagem" id="divMsg" >
+
+    </div>
     <div class="raposa" id="raposa">
       <img src="fox.png" height="150">
     </div>
@@ -66,55 +75,77 @@
     milho.addEventListener('click', function(){
       if(m === 0 && b===0){
         milho.style = 'left:1350px' ;
-        moveBarco();
+        barco.style.left = '1000px';
+        b = 1;
         m = 1;
+        verifica();
       }
       else if(m === 1 && b === 1){
         milho.style = 'left:450px' ;
-        moveBarco();
+        barco.style.left = '400px';
+        b = 0;
         m = 0;
+        verifica();
       }
     })
     galinha.addEventListener('click', function(){
       if(g===0 && b===0){
         galinha.style = 'left:1500px';
-        moveBarco();
+        barco.style.left = '1000px';
+        b = 1;
         g=1;
+        verifica();
       }
       else if(g===1 && b===1){
         galinha.style = 'left:30px';
-        moveBarco();
+        barco.style.left = '400px';
+        b = 0;
         g=0;
+        verifica();
       }
     })
     raposa.addEventListener('click', function(){
       if(r===0 && b===0){
         raposa.style = 'left:1700px';
-        moveBarco();
+        barco.style.left = '1000px';
+        b = 1;
         r = 1;
+        verifica();
       }
       else if(r===1 && b===1){
         raposa.style = 'left:200px';
-        moveBarco();
+        barco.style.left = '400px';
+        b = 0;
         r = 0;
+        verifica();
       }
     })
     function moveBarco(){
       if(b === 0){
         barco.style.left = '1000px';
         b = 1;
+        verifica();
       }
       else{
         barco.style.left = '400px';
         b = 0;
+        verifica();
       }
     }
     function verifica(){
       if((g===0 && m===0 && b===1) || (g===1 && m===1 && b===0)){
-
+        var msg = 'Você perdeu! A galinha comeu o milho';
+        var p = document.createElement('p');
+        var divMsg = document.getElementById('divMsg');
+        p.innerHTML = msg;
+        divMsg.appendChild(p);
       }
       else if((g===0 && r===0 && b ===1) || (g===1 && r===1 && b===0)){
-
+        var msg = 'Você perdeu! A raposa comeu a galinha.';
+        var p = document.createElement('p');
+        var divMsg = document.getElementById('divMsg');
+        p.innerHTML = msg;
+        divMsg.appendChild(p);
       }
 
     }
