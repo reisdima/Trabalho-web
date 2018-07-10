@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trabalho 02</title>
+    <h1>BEM VINDO AO DESAFIO DO RIO!</h1>
+   <p>OBJETIVO: O objetivo do desafio é
+   colocar todos os elementos do outro lado.
+ O problema esta justamente em como ira fazer isso.
+ <br> Se a galinha ficar com o milho ou a raposa ficar com a galinha, você perde.
+</p>
+<p>COMO JOGAR: Para jogar, clique na imagem de quem você quer mover para o outro lado do rio
+  (o barco moverá automaticamente quando estiver do mesmo lado da imagem clicada). </p>
+    <style media="screen">
+      body{
+        background-image: url(cenario2.png);
+        background-size: 100%;
+      }
+      .raposa{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 200px;
+        top: 420px;
+      }
+      .galinha{
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        left: 30px;
+        top: 440px;
+      }
+      .milho{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 450px;
+        top: 450px;
+      }
+      .barco{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 400px;
+        top: 650px;
+      }
+      .mensagem{
+        position:absolute;
+        text-align: center;
+        width: 99%;
+        top: 300px;
+      }
+      .resultado{
+        position: absolute;
+        left: 85%;
+        text-align: center;
+      }
+      table{
+   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+   border-collapse: collapse;
+   width: 100%;
+           }
+
+ td, th {
+   border: 1px solid #ddd;
+   padding: 8px;
+         }
+
+   tr:nth-child{background-color: #f2f2f2;}
+
+   tr:hover {background-color: #ddd;}
+
+   th {
+   padding-top: 12px;
+   padding-bottom: 12px;
+   text-align: left;
+   background-color: #4CAF50;
+   color: white;
+ }
+    </style>
+  </head>
+  <body>
+    <div class="resultado">
+      <p>Movimentos: <span id="mov">0</span> </p>
+      <table>
+        <thead>
+          <th>Tentativa</th>
+          <th>Movimentos</th>
+          <th>Resultado</th>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="mensagem" id="divMsg" ></div>
+    <div class="raposa" id="raposa">
+      <img src="fox.png" height="150">
+    </div>
+    <div class="galinha" id="galinha" >
+      <img src="galinha.png" height="100" >
+    </div>
+    <div class="milho" id="milho">
+      <img src="milho.png" height="100">
+    </div>
+    <div class="barco" id="barco">
+      <img src="boat.png" height="100" >
+    </div>
+  </body>
+  <script>
+    var r = 0;
+    var m = 0;
+    var g = 0;
+    var b = 0;
+    var tentativa = 1;
+    var movimentos = document.getElementById('mov');
+    var raposa = document.getElementById('raposa');
+    var galinha = document.getElementById('galinha');
+    var milho = document.getElementById('milho');
+    var barco = document.getElementById('barco');
+    barco.addEventListener('click', moveBarco);
+    milho.addEventListener('click', function(){
+      if(m === 0 && b===0){
+        milho.style = 'left:1350px' ;
+        barco.style.left = '1000px';
+        b = 1;
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        m = 1;
+        verifica();
+      }
+      else if(m === 1 && b === 1){
+        milho.style = 'left:450px' ;
+        barco.style.left = '400px';
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        b = 0;
+        m = 0;
+        verifica();
+      }
+    })
+    galinha.addEventListener('click', function(){
+      if(g===0 && b===0){
+        galinha.style = 'left:1500px';
+        barco.style.left = '1000px';
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        b = 1;
+        g=1;
+        verifica();
+      }
+      else if(g===1 && b===1){
+        galinha.style = 'left:30px';
+        barco.style.left = '400px';
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        b = 0;
+        g=0;
+        verifica();
+      }
+    })
+    raposa.addEventListener('click', function(){
+      if(r===0 && b===0){
+        raposa.style = 'left:1700px';
+        barco.style.left = '1000px';
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        b = 1;
+        r = 1;
+        verifica();
+      }
+      else if(r===1 && b===1){
+        raposa.style = 'left:200px';
+        barco.style.left = '400px';
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        b = 0;
+        r = 0;
+        verifica();
+      }
+    })
+    function moveBarco(){
+      if(b === 0){
+        barco.style.left = '1000px';
+        b = 1;
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        verifica();
+      }
+      else if(b===1){
+        barco.style.left = '400px';
+        b = 0;
+        movimentos.textContent = Number(movimentos.textContent) + 1;
+        verifica();
+      }
+    }
+    function verifica(){
+      if (g===0 && r===0 && m===0 && b === 1) {
+        var msg = 'Você perdeu! A galinha comeu o milho e a raposa comeu a galinha.';
+        var p = document.createElement('p');
+        var divMsg = document.getElementById('divMsg');
+        p.innerHTML = msg;
+        divMsg.appendChild(p);
+        resultado(0);
+      }
+      else if((g===0 && r===0 && b ===1) || (g===1 && r===1 && b===0)){
+        var msg = 'Você perdeu! A raposa comeu a galinha.';
+        var p = document.createElement('p');
+        var divMsg = document.getElementById('divMsg');
+        p.innerHTML = msg;
+        divMsg.appendChild(p);
+        resultado(0);
+      }
+      else if((g===0 && m===0 && b===1) || (g===1 && m===1 && b===0)){
+        var msg = 'Você perdeu! A galinha comeu o milho.';
+        var p = document.createElement('p');
+        var divMsg = document.getElementById('divMsg');
+        p.innerHTML = msg;
+        divMsg.appendChild(p);
+        resultado(0);
+      }
+      else if(g===1 && r===1 && m===1){
+        var msg = 'Parabéns, você venceu!'
+        var p = document.createElement('p');
+        var divMsg = document.getElementById('divMsg');
+        p.innerHTML = msg;
+        divMsg.appendChild(p);
+        resultado(1);
+      }
+    }
+    function resultado(x){
+      b=2;
+      g=2;
+      m=2;
+      r=2;
+      var botaoReset = document.createElement('button');
+      botaoReset.innerHTML = 'Reiniciar';
+      var divMsg = document.getElementById('divMsg');
+      var tbody = document.getElementById('tbody');
+      var novoTr = document.createElement('tr');
+      var tdTentativa = document.createElement('td');
+      var tdMovimentos = document.createElement('td');
+      var tdResultado = document.createElement('td');
+      tdTentativa.textContent = tentativa;
+      tdMovimentos.textContent = movimentos.textContent;
+      if(x===1){
+        tdResultado.textContent = 'Vitória';
+      }
+      else {
+        tdResultado.textContent = 'Derrota';
+      }
+      novoTr.appendChild(tdTentativa);
+      novoTr.appendChild(tdMovimentos);
+      novoTr.appendChild(tdResultado);
+      tbody.appendChild(novoTr);
+      divMsg.appendChild(botaoReset);
+      botaoReset.addEventListener('click', function(){
+        galinha.style = 'left:30px';
+        raposa.style = 'left:200px';
+        milho.style = 'left:450px' ;
+        barco.style.left = '400px';
+        tentativa++;
+        b = 0;
+        r = 0;
+        m = 0;
+        g = 0;
+        movimentos.textContent = 0;
+        divMsg.innerHTML = '';
+      })
+    }
+  </script>
+</html>
