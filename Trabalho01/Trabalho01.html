@@ -236,12 +236,14 @@
         spanDelete.classList.add('delete');
         tdProd.textContent = produto;
         tdPreco.textContent = preco;
-        spanDelete.addEventListener('click', function(x){
-          produtoFixo.splice(x, 1);
-          tbody.innerHTML = '';
-          exibeProdutoFixo();
-          calculaTotal();
-        })
+        spanDelete.addEventListener('click',(function(x){
+          return function(e){
+            console.log("Lixo clicado: "+x);
+            produtoFixo.splice(x, 1);
+            exibeProdutoFixo();
+            calculaTotal();
+          }
+        })(i));
         novoTr.appendChild(tdProd);
         novoTr.appendChild(tdPreco);
         novoTr.appendChild(spanDelete);
@@ -263,12 +265,14 @@
         tdPreco.textContent = preco;
         tdProd.textContent = produto;
         spanDelete.classList.add("delete");
-        spanDelete.addEventListener('click', function(x){
-          produtoPerCapita.splice(x, 1);
-          tbody.innerHTML = '';
-          exibeProdutoPerCapita();
-          calculaTotal();
-        })
+        spanDelete.addEventListener('click',(function(x){
+          return function(e){
+            console.log("Lixo clicado: "+x);
+            produtoPerCapita.splice(x, 1);
+            exibeProdutoPerCapita();
+            calculaTotal();
+          }
+        })(i));
         novoTr.appendChild(tdProd);
         novoTr.appendChild(tdPreco);
         novoTr.appendChild(spanDelete);
