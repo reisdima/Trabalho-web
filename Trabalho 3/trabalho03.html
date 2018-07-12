@@ -10,13 +10,20 @@
       input{
 
       }
+      .delete{
+        visibility:hidden;
+
+      }
     </style>
   </head>
   <body>
     <form class="formulario" name="dados">
       <div><label>Nome: <input type="text" name="nome" placeholder='Digite seu nome'> </label></div>
       <div><label>Idade: <input type="number" name="idade" placeholder="Digite sua idade"> </label></div>
-      <div><button type="button">Enviar</button></div>
+      <div>
+        <button type="button">Enviar</button>
+        <button type="button" class="delete">Deletar</button>
+      </div>
       <div class="lista1">
         <ul name="lista1">
           <li>Teste1</li>
@@ -41,7 +48,27 @@
     var listas = document.querySelectorAll('ul');
     var botao = document.querySelectorAll('button');
     botaoEnviar = botao[0];
+    botaoDeletar = botao[1];
+
     botaoEnviar.addEventListener('click', enviaFormulario);
+    botaoDeletar.addEventListener('click', deletar);
+    function deletar(){
+      if(atual>=18){
+        nomeAdulto.splice(verifica, 1);
+        nome.value = '';
+        idade.value = '';
+        nome.focus();
+        exibeAdulto();
+      }
+      else{
+        nomeCrianca.splice(verifica, 1);
+        nome.value = '';
+        idade.value = '';
+        nome.focus();
+        exibeAdulto();
+      }
+      botaoDeletar.style = 'visibility: hidden';
+    }
 
     function exibeAdulto(){
       var lista = listas[0];
@@ -57,6 +84,7 @@
             nome.focus();
             verifica = x;
             atual = idade.value;
+            botaoDeletar.style = 'visibility: visible';
             botaoEnviar.textContent = 'Salvar';
           }
         })(i));
@@ -75,6 +103,7 @@
             idade.value = idadeCrianca[x];
             atual = idade.value;
             verifica = x;
+            botaoDeletar.style = 'visibility: visible';
             botaoEnviar.textContent = 'Salvar';
           }
         })(i));
@@ -150,6 +179,7 @@
           nome.focus();
           verifica=-1;
         }
+        botaoDeletar.style = 'visibility: hidden';
       }
     }
   </script>
