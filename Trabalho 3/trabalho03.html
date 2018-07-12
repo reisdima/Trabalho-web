@@ -45,7 +45,7 @@
     function exibeAdulto(){
       var lista = listas[0];
       lista.innerHTML = '';
-      for (var i = 0; i < nomes.length; i++) {
+      for (var i = 0; i < nomeAdulto.length; i++) {
         var novoLi = document.createElement('li');
         novoLi.textContent = nomeAdulto[i];
         lista.appendChild(novoLi);
@@ -58,6 +58,16 @@
             botaoEnviar.textContent = 'Salvar';
           }
         })(i));
+      }
+    }
+    function exibeCrianca(){
+      var lista = listas[1];
+      lista.innerHTML = '';
+      for (var i = 0; i < nomeCrianca.length; i++) {
+        var novoLi = document.createElement('li');
+        novoLi.textContent = nomeCrianca[i];
+        lista.appendChild(novoLi);
+        
       }
     }
     function adiciona(){
@@ -87,14 +97,26 @@
       }
     }
     function salva(){
-      nomes[ver] = nome.value;
-      idades[ver] = idade.value;
-      ver = -1;
-      botaoEnviar.textContent = 'Enviar';
-      nome.value = '';
-      idade.value = '';
-      nome.focus();
-      exibeAdulto();
+      if(idade.value>=18){
+        nomeAdulto[ver] = nome.value;
+        idadeAdulto[ver] = idade.value;
+        ver = -1;
+        botaoEnviar.textContent = 'Enviar';
+        nome.value = '';
+        idade.value = '';
+        nome.focus();
+        exibeAdulto();
+      }
+      else{
+        nomeCrianca[ver] = nome.value;
+        idadeCrianca[ver] = idade.value;
+        ver = -1;
+        botaoEnviar.textContent = 'Enviar';
+        nome.value = '';
+        idade.value = '';
+        nome.focus();
+        exibeCrianca();
+      }
     }
   </script>
 </html>
