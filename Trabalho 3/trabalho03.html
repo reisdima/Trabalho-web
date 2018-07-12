@@ -36,7 +36,8 @@
     var idadeAdulto = [];
     var nomeCrianca = [];
     var idadeCrianca = [];
-    var ver = -1;
+    var verifica = -1;
+    var atual = -1;
     var listas = document.querySelectorAll('ul');
     var botao = document.querySelectorAll('button');
     botaoEnviar = botao[0];
@@ -54,7 +55,8 @@
             nome.value = nomeAdulto[x];
             idade.value = idadeAdulto[x];
             nome.focus();
-            ver = x;
+            verifica = x;
+            atual = idade.value;
             botaoEnviar.textContent = 'Salvar';
           }
         })(i));
@@ -67,7 +69,15 @@
         var novoLi = document.createElement('li');
         novoLi.textContent = nomeCrianca[i];
         lista.appendChild(novoLi);
-        
+        novoLi.addEventListener('click', (function(x){
+          return function(e){
+            nome.value = nomeCrianca[x];
+            idade.value = idadeCrianca[x];
+            atual = idade.value;
+            verifica = x;
+            botaoEnviar.textContent = 'Salvar';
+          }
+        })(i));
       }
     }
     function adiciona(){
@@ -89,7 +99,7 @@
       }
     }
     function enviaFormulario(){
-      if(ver===-1){
+      if(verifica===-1){
         adiciona();
       }
       else{
@@ -98,24 +108,48 @@
     }
     function salva(){
       if(idade.value>=18){
-        nomeAdulto[ver] = nome.value;
-        idadeAdulto[ver] = idade.value;
-        ver = -1;
-        botaoEnviar.textContent = 'Enviar';
-        nome.value = '';
-        idade.value = '';
-        nome.focus();
-        exibeAdulto();
+        if(atual>=18){
+          nomeAdulto[verifica] = nome.value;
+          idadeAdulto[verifica] = idade.value;
+          verifica = -1;
+          botaoEnviar.textContent = 'Enviar';
+          nome.value = '';
+          idade.value = '';
+          nome.focus();
+          exibeAdulto();
+        }
+        else{
+          nomeCrianca.splice(verifica, 1);
+          exibeCrianca();
+          adiciona();
+          verifica = -1;
+          botaoEnviar.textContent = 'Enviar';
+          nome.value = '';
+          idade.value = '';
+          nome.focus();
+        }
       }
       else{
-        nomeCrianca[ver] = nome.value;
-        idadeCrianca[ver] = idade.value;
-        ver = -1;
-        botaoEnviar.textContent = 'Enviar';
-        nome.value = '';
-        idade.value = '';
-        nome.focus();
-        exibeCrianca();
+        if(atual<18){
+          nomeCrianca[verifica] = nome.value;
+          idadeCrianca[verifica] = idade.value;
+          verifica = -1;
+          botaoEnviar.textContent = 'Enviar';
+          nome.value = '';
+          idade.value = '';
+          nome.focus();
+          exibeCrianca();
+        }
+        else{
+          nomeAdulto.splice(verifica, 1);
+          exibeAdulto();
+          adiciona();
+          botaoEnviar.textContent = 'Enviar';
+          nome.value = '';
+          idade.value = '';
+          nome.focus();
+          verifica=-1;
+        }
       }
     }
   </script>
