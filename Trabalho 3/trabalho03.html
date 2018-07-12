@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trabalho 03</title>
+    <style>
+      body{
+        font-family: arial;
+      }
+      input{
+
+      }
+    </style>
+  </head>
+  <body>
+    <form class="formulario" name="dados">
+      <div><label>Nome: <input type="text" name="nome" placeholder='Digite seu nome'> </label></div>
+      <div><label>Idade: <input type="number" name="idade" placeholder="Digite sua idade"> </label></div>
+      <div><button type="button">Enviar</button></div>
+      <div class="lista1">
+        <ul name="lista1">
+          <li>Teste1</li>
+        </ul>
+      </div>
+      <div class="lista2">
+        <ul>
+          <li>Teste2</li>
+        </ul>
+      </div>
+    </form>
+  </body>
+  <script>
+    var nome = document.dados.nome;
+    var idade = document.dados.idade;
+    var nomeAdulto = [];
+    var idadeAdulto = [];
+    var nomeCrianca = [];
+    var idadeCrianca = [];
+    var ver = -1;
+    var listas = document.querySelectorAll('ul');
+    var botao = document.querySelectorAll('button');
+    botaoEnviar = botao[0];
+    botaoEnviar.addEventListener('click', enviaFormulario);
+
+    function exibeAdulto(){
+      var lista = listas[0];
+      lista.innerHTML = '';
+      for (var i = 0; i < nomes.length; i++) {
+        var novoLi = document.createElement('li');
+        novoLi.textContent = nomeAdulto[i];
+        lista.appendChild(novoLi);
+        novoLi.addEventListener('click',(function(x){
+          return function(e){
+            nome.value = nomeAdulto[x];
+            idade.value = idadeAdulto[x];
+            nome.focus();
+            ver = x;
+            botaoEnviar.textContent = 'Salvar';
+          }
+        })(i));
+      }
+    }
+    function adiciona(){
+      if(idade.value>=18){
+        nomeAdulto.push(nome.value);
+        idadeAdulto.push(idade.value);
+        nome.value = '';
+        idade.value = '';
+        nome.focus();
+        exibeAdulto();
+      }
+      else{
+        nomeCrianca.push(nome.value);
+        idadeCrianca.push(idade.value);
+        nome.value = '';
+        idade.value = '';
+        nome.focus();
+        exibeCrianca();
+      }
+    }
+    function enviaFormulario(){
+      if(ver===-1){
+        adiciona();
+      }
+      else{
+        salva();
+      }
+    }
+    function salva(){
+      nomes[ver] = nome.value;
+      idades[ver] = idade.value;
+      ver = -1;
+      botaoEnviar.textContent = 'Enviar';
+      nome.value = '';
+      idade.value = '';
+      nome.focus();
+      exibeAdulto();
+    }
+  </script>
+</html>
