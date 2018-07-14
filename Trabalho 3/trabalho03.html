@@ -8,31 +8,64 @@
         font-family: arial;
       }
       input{
-
+        width: 150px;
       }
       .delete{
         visibility:hidden;
+        position: relative;
+        left: 108px;
 
+      }
+      .label1{
+
+      }
+      .label2{
+        position: relative;
+        top: 4px;
+      }
+      .lista1{
+        position: absolute;
+        left: 30px;
+        top: 80px;
+      }
+      .lista2{
+        position: absolute;
+        left: 200px;
+        top: 80px;
+      }
+      button{
+        position: relative;
+        top: 8px;
+      }
+      .input1{
+        position: absolute;
+        left: 80px;
+      }
+      .input2{
+        position: relative;
+        left: 28px;
+      }
+      .listaAdulto{
+        position: relative;
+        bottom: 10px;
       }
     </style>
   </head>
   <body>
     <form class="formulario" name="dados">
-      <div><label>Nome: <input type="text" name="nome" placeholder='Digite seu nome'> </label></div>
-      <div><label>Idade: <input type="number" name="idade" placeholder="Digite sua idade"> </label></div>
+      <div class="label1"><label>Nome:<input type="text" name="nome" placeholder='Digite seu nome' class="input1"> </label></div>
+      <div class="label2"><label>Idade:<input type="number" name="idade" placeholder="Digite sua idade" class="input2"> </label></div>
       <div>
         <button type="button">Enviar</button>
         <button type="button" class="delete">Deletar</button>
       </div>
       <div class="lista1">
-        <ul name="lista1">
-          <li>Teste1</li>
-        </ul>
+        <h4>Adultos</h4>
+        <ul class="listaAdulto"><li>Teste</li></ul>
       </div>
       <div class="lista2">
-        <ul>
-          <li>Teste2</li>
-        </ul>
+        <h4>Crianças</h4>
+        <ul><li>Teste</li></ul>
       </div>
     </form>
   </body>
@@ -41,8 +74,8 @@
     var idade = document.dados.idade;
     var nomeAdulto = [];
     var idadeAdulto = [];
-    var nomeCrianca = [];
-    var idadeCrianca = [];
+    var nomeEstudante = [];
+    var idadeEstudante = [];
     var verifica = -1;
     var atual = -1;
     var listas = document.querySelectorAll('ul');
@@ -61,12 +94,14 @@
         exibeAdulto();
       }
       else{
-        nomeCrianca.splice(verifica, 1);
+        nomeEstudante.splice(verifica, 1);
         nome.value = '';
         idade.value = '';
         nome.focus();
-        exibeAdulto();
+        exibeEstudante();
       }
+      verifica = -1;
+      botaoEnviar.textContent = 'Enviar';
       botaoDeletar.style = 'visibility: hidden';
     }
 
@@ -76,6 +111,7 @@
       for (var i = 0; i < nomeAdulto.length; i++) {
         var novoLi = document.createElement('li');
         novoLi.textContent = nomeAdulto[i];
+        novoLi.style.cursor = 'pointer';
         lista.appendChild(novoLi);
         novoLi.addEventListener('click',(function(x){
           return function(e){
@@ -90,17 +126,18 @@
         })(i));
       }
     }
-    function exibeCrianca(){
+    function exibeEstudante(){
       var lista = listas[1];
       lista.innerHTML = '';
-      for (var i = 0; i < nomeCrianca.length; i++) {
+      for (var i = 0; i < nomeEstudante.length; i++) {
         var novoLi = document.createElement('li');
-        novoLi.textContent = nomeCrianca[i];
+        novoLi.textContent = nomeEstudante[i];
+        novoLi.style.cursor = 'pointer';
         lista.appendChild(novoLi);
         novoLi.addEventListener('click', (function(x){
           return function(e){
-            nome.value = nomeCrianca[x];
-            idade.value = idadeCrianca[x];
+            nome.value = nomeEstudante[x];
+            idade.value = idadeEstudante[x];
             atual = idade.value;
             verifica = x;
             botaoDeletar.style = 'visibility: visible';
@@ -119,12 +156,12 @@
         exibeAdulto();
       }
       else{
-        nomeCrianca.push(nome.value);
-        idadeCrianca.push(idade.value);
+        nomeEstudante.push(nome.value);
+        idadeEstudante.push(idade.value);
         nome.value = '';
         idade.value = '';
         nome.focus();
-        exibeCrianca();
+        exibeEstudante();
       }
     }
     function enviaFormulario(){
@@ -141,18 +178,16 @@
           nomeAdulto[verifica] = nome.value;
           idadeAdulto[verifica] = idade.value;
           verifica = -1;
-          botaoEnviar.textContent = 'Enviar';
           nome.value = '';
           idade.value = '';
           nome.focus();
           exibeAdulto();
         }
         else{
-          nomeCrianca.splice(verifica, 1);
-          exibeCrianca();
+          nomeEstudante.splice(verifica, 1);
+          exibeEstudante();
           adiciona();
           verifica = -1;
-          botaoEnviar.textContent = 'Enviar';
           nome.value = '';
           idade.value = '';
           nome.focus();
@@ -160,27 +195,26 @@
       }
       else{
         if(atual<18){
-          nomeCrianca[verifica] = nome.value;
-          idadeCrianca[verifica] = idade.value;
+          nomeEstudante[verifica] = nome.value;
+          idadeEstudante[verifica] = idade.value;
           verifica = -1;
-          botaoEnviar.textContent = 'Enviar';
           nome.value = '';
           idade.value = '';
           nome.focus();
-          exibeCrianca();
+          exibeEstudante();
         }
         else{
           nomeAdulto.splice(verifica, 1);
           exibeAdulto();
           adiciona();
-          botaoEnviar.textContent = 'Enviar';
           nome.value = '';
           idade.value = '';
           nome.focus();
           verifica=-1;
         }
-        botaoDeletar.style = 'visibility: hidden';
       }
+      botaoEnviar.textContent = 'Enviar';
+      botaoDeletar.style = 'visibility: hidden';
     }
   </script>
 </html>
