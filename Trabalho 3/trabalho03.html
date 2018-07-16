@@ -5,67 +5,100 @@
     <title>Trabalho 03</title>
     <style>
       body{
-        font-family: arial;
+        font-family: Verdana;
+        background-color: DarkSlateBlue   ;
+        color: white ;
+        font-weight: 500;
       }
       input{
         width: 150px;
+        background-color: MistyRose  ;
+        border: solid 1px;
       }
       .delete{
         visibility:hidden;
         position: relative;
-        left: 108px;
-
+        left: 100px;
       }
       .label1{
-
+        font-size: 18px;
       }
       .label2{
         position: relative;
         top: 4px;
-      }
-      .lista1{
-        position: absolute;
-        left: 30px;
-        top: 80px;
-      }
-      .lista2{
-        position: absolute;
-        left: 200px;
-        top: 80px;
+        font-size: 18px;
       }
       button{
         position: relative;
+        border: 1px solid black;
+        font-family: Verdana;
+        cursor: pointer;
+        border-radius: 2px;
         top: 8px;
+        background-color: white;
+        color: black;
       }
       .input1{
-        position: absolute;
-        left: 80px;
+        position: relative;
+        left: 12px;
       }
       .input2{
         position: relative;
-        left: 28px;
+        left: 13px;
       }
-      .listaAdulto{
+      ul  {
         position: relative;
+        bottom: 20px;
+      }
+      .lista1{
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        border:1px solid;
+        width: 182px;
+        height: 360px;
+      }
+      .lista2{
+        position: absolute;
+        left: 206px;
+        border: 1px solid;
+        top: 15px;
+        width: 182px;
+        height: 360px;
+      }
+      .listas{
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        left: 45px;
+        top: 120px;
+        border: solid 1px;
+        border-collapse: collapse;
+      }
+      h4{
+        position: relative;
+        left: 5px;
         bottom: 10px;
       }
     </style>
   </head>
   <body>
     <form class="formulario" name="dados">
-      <div class="label1"><label>Nome:<input type="text" name="nome" placeholder='Digite seu nome' class="input1"> </label></div>
-      <div class="label2"><label>Idade:<input type="number" name="idade" placeholder="Digite sua idade" class="input2"> </label></div>
+      <div class="label1"><label>Nome:<input type="text" name="nome" placeholder='Digite seu nome' class="input1" required> </label></div>
+      <div class="label2"><label>Idade:<input type="number" name="idade" placeholder="Digite sua idade" class="input2" required> </label></div>
       <div>
         <button type="button">Enviar</button>
         <button type="button" class="delete">Deletar</button>
       </div>
-      <div class="lista1">
-        <h4>Adultos</h4>
-        <ul class="listaAdulto"><li>Teste</li></ul>
-      </div>
-      <div class="lista2">
-        <h4>Crianças</h4>
-        <ul><li>Teste</li></ul>
+      <div class="listas">
+        <div class="lista1">
+          <h4>Adultos</h4>
+          <ul></ul>
+        </div>
+        <div class="lista2">
+          <h4>Estudantes</h4>
+          <ul></ul>
+        </div>
       </div>
     </form>
   </body>
@@ -138,6 +171,7 @@
           return function(e){
             nome.value = nomeEstudante[x];
             idade.value = idadeEstudante[x];
+            nome.focus();
             atual = idade.value;
             verifica = x;
             botaoDeletar.style = 'visibility: visible';
@@ -165,11 +199,13 @@
       }
     }
     function enviaFormulario(){
-      if(verifica===-1){
-        adiciona();
-      }
-      else{
-        salva();
+      if(nome.value!='' && idade.value !=''){
+        if(verifica===-1){
+          adiciona();
+        }
+        else{
+          salva();
+        }
       }
     }
     function salva(){
